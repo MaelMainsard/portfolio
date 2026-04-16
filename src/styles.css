@@ -1,1 +1,84 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Calling Code";
+  src: url("assets/fonts/calling_code/CallingCode-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Code";
+  src: url("assets/fonts/code/CODE Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Code";
+  src: url("assets/fonts/code/CODE Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pixel Grid Square S";
+  src: url("assets/fonts/pixel-grid-font-family/pixelgridtrial-squarebolds.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pixel Grid Point S";
+  src: url("assets/fonts/pixel-grid-font-family/pixelgridtrial-pointbolds.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pixel Grid Plastic S";
+  src: url("assets/fonts/pixel-grid-font-family/pixelgridtrial-plasticmids.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pixel Grid Shadow S";
+  src: url("assets/fonts/pixel-grid-font-family/pixelgridtrial-shadowbolds.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pixel Grid Circle S";
+  src: url("assets/fonts/pixel-grid-font-family/pixelgridtrial-circlebolds.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pixel Grid Linedown S";
+  src: url("assets/fonts/pixel-grid-font-family/pixelgridtrial-linedownmids.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+    --font-calling-code: "Calling Code";
+    --font-code: "Code";
+    --font-pixel-grid-square-s: "Pixel Grid Square S";
+    --font-pixel-grid-point-s: "Pixel Grid Point S";
+    --font-pixel-grid-plastic-s: "Pixel Grid Plastic S";
+    --font-pixel-grid-shadow-s: "Pixel Grid Shadow S";
+    --font-pixel-grid-circle-s: "Pixel Grid Circle S";
+    --font-pixel-grid-linedown-s: "Pixel Grid Linedown S";
+}
