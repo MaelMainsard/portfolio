@@ -20,6 +20,8 @@ yarn-error.log
 .settings/
 *.sublime-workspace
 
+/src/assets/COSTA_RICA.mp4
+
 # Visual Studio Code
 .vscode/*
 !.vscode/settings.json

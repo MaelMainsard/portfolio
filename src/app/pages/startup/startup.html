@@ -1,0 +1,24 @@
+<section class="relative w-full h-full flex justify-center items-center bg-white">
+
+  <div id="cornerFrame" class="absolute">
+    <components-corner class="absolute top-0 left-0"/>
+    <components-corner class="absolute top-0 right-0 rotate-90"/>
+    <components-corner class="absolute bottom-0 left-0 -rotate-90"/>
+    <components-corner class="absolute bottom-0 right-0 rotate-180"/>
+  </div>
+
+  @if(widgetDisplay() == WidgetType.NONE){
+    <div #logo class="w-fit h-fit flex justify-center items-center p-5">
+      <components-logo/>
+    </div>
+  }
+
+  @if(widgetDisplay() == WidgetType.COOKIE){
+    <widget-cookies [(widgetDisplay)]="widgetDisplay"/>
+  }
+
+  @if(widgetDisplay() == WidgetType.VIDEO_LOADER){
+    <widget-video-loader/>
+  }
+
+</section>

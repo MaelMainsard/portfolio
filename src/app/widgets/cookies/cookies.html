@@ -1,0 +1,53 @@
+<section class="w-full h-full">
+  <div class="flex flex-row w-full absolute gap-10 lg:top-10 top-15">
+    <components-line-a class="[@media(min-height:780px)]:block hidden"/>
+    <components-triangle id="triangle" class="absolute opacity-0 m-2 lg:right-[5.5vw] right-0 top-13 [@media(min-height:780px)]:block hidden"/>
+    <div #rectangle class="absolute opacity-0 w-10 h-2.5 bg-[#545454] lg:right-50 right-40 lg:top-5 top-8 [@media(min-height:780px)]:block hidden"></div>
+  </div>
+
+  <div class="hidden absolute lg:flex flex-col h-full justify-between pt-48 pb-32 right-[6vw]">
+    @for (i of crosses; track i) {
+      <components-cross class="opacity-0"/>
+    }
+  </div>
+
+  <div class="absolute  w-screen h-screen flex flex-col justify-center items-center xl:gap-25 gap-10 md:pb-15 pb-1">
+
+    <div #titleGroup class="opacity-0">
+      <div class="hidden xl:flex flex-row items-center">
+        <div class="flex relative">
+          <components-dash/>
+          <components-dash class="absolute left-5"/>
+        </div>
+        <div #titleWrapper class="ml-10 mr-5 overflow-hidden">
+          <h1 class="font-pixel-grid-square-s text-5xl whitespace-nowrap">[SYS] AUTORISATION REQUISE</h1>
+        </div>
+        <components-arrow-down-right/>
+      </div>
+      <div class="flex xl:hidden flex-col items-center text-center gap-5">
+        <div class="flex flex-row items-center">
+          <div class="flex relative">
+            <components-dash/>
+            <components-dash class="absolute left-5"/>
+          </div>
+          <div #titleWrapper class="ml-8 mr-5 overflow-hidden">
+            <h1 class="font-pixel-grid-square-s text-5xl">[SYS]</h1>
+          </div>
+          <components-arrow-down-right/>
+        </div>
+        <div #titleWrapper class="ml-10 mr-5 overflow-hidden">
+          <h1 class=" text-[#545454] font-pixel-grid-square-s text-4xl">AUTORISATION REQUISE</h1>
+        </div>
+      </div>
+    </div>
+
+    <p #description class="text-center opacity-0 text-[#545454] font-calling-code max-w-[45rem]">[SYS_INFO :: COOKIES-7X-ALPHA] <br/>Les données récoltées par ce site sont uniquement utilisées à des fins statistiques. Aucune donnée n'est partagée à un tiers.</p>
+
+    <div class="flex md:flex-row flex-col md:gap-20 gap-3 mx-[1rem]">
+      <components-code-button class="opacity-0" (clicked)="onAcceptClick()" id="accept" title="ACCEPTER"/>
+      <components-code-button class="opacity-0" (clicked)="onDeclineClick()" id="decline" title="REFUSER" [type]="ButtonType.DANGER"/>
+    </div>
+  </div>
+
+  <components-line-b class="[@media(min-height:780px)]:block hidden absolute bottom-0"/>
+</section>
