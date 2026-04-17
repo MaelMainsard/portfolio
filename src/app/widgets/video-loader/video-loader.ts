@@ -17,7 +17,7 @@ export class VideoLoader implements AfterViewInit {
 
   constructor() {
     effect(() => {
-      if (this.videoService.progress() == 100) {
+      if (this.videoService.progress() >= 100) {
         this.exitLoader();
       }
     });

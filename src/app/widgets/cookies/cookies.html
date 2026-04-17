@@ -2,7 +2,7 @@
   <div class="flex flex-row w-full absolute gap-10 lg:top-10 top-15">
     <components-line-a class="[@media(min-height:780px)]:block hidden"/>
     <components-triangle id="triangle" class="absolute opacity-0 m-2 lg:right-[5.5vw] right-0 top-13 [@media(min-height:780px)]:block hidden"/>
-    <div #rectangle class="absolute opacity-0 w-10 h-2.5 bg-[#545454] lg:right-50 right-40 lg:top-5 top-8 [@media(min-height:780px)]:block hidden"></div>
+    <div #rectangle class="absolute opacity-0 w-10 h-2.5 bg-ink-soft lg:right-50 right-40 lg:top-5 top-8 [@media(min-height:780px)]:block hidden"></div>
   </div>
 
   <div class="hidden absolute lg:flex flex-col h-full justify-between pt-48 pb-32 right-[6vw]">
@@ -36,16 +36,16 @@
           <components-arrow-down-right/>
         </div>
         <div #titleWrapper class="ml-10 mr-5 overflow-hidden">
-          <h1 class=" text-[#545454] font-pixel-grid-square-s text-4xl">AUTORISATION REQUISE</h1>
+          <h1 class=" text-ink-soft font-pixel-grid-square-s text-4xl">AUTORISATION REQUISE</h1>
         </div>
       </div>
     </div>
 
-    <p #description class="text-center opacity-0 text-[#545454] font-calling-code max-w-[45rem]">[SYS_INFO :: COOKIES-7X-ALPHA] <br/>Les données récoltées par ce site sont uniquement utilisées à des fins statistiques. Aucune donnée n'est partagée à un tiers.</p>
+    <p #description class="text-center opacity-0 text-ink-soft font-calling-code max-w-[45rem]">[SYS_INFO :: COOKIES-7X-ALPHA] <br/>Les données récoltées par ce site sont uniquement utilisées à des fins statistiques. Aucune donnée n'est partagée à un tiers.</p>
 
     <div class="flex md:flex-row flex-col md:gap-20 gap-3 mx-[1rem]">
-      <components-code-button class="opacity-0" (clicked)="onAcceptClick()" id="accept" title="ACCEPTER"/>
-      <components-code-button class="opacity-0" (clicked)="onDeclineClick()" id="decline" title="REFUSER" [type]="ButtonType.DANGER"/>
+      <components-code-button class="opacity-0 min-w-[20rem]" (clicked)="onAcceptClick()" id="accept" title="ACCEPTER"/>
+      <components-code-button class="opacity-0 min-w-[20rem]" (clicked)="onDeclineClick()" id="decline" title="REFUSER" [type]="ButtonType.DANGER"/>
     </div>
   </div>
 

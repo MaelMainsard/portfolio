@@ -81,4 +81,15 @@
     --font-pixel-grid-shadow-s: "Pixel Grid Shadow S";
     --font-pixel-grid-circle-s: "Pixel Grid Circle S";
     --font-pixel-grid-linedown-s: "Pixel Grid Linedown S";
+
+    --color-ink: #383838;
+    --color-ink-soft: #545454;
+    --color-ink-muted: #9E9E9E;
+    --color-line: #D9D9D9;
+
+    --color-primary: #3a3a3a;
+    --color-primary-hover: #4f4f4f;
+    --color-accent: #F96666;
+    --color-accent-hover: #ff7f7f;
+    --color-online: #77AE5F;
 }

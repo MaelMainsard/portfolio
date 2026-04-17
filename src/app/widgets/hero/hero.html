@@ -1,3 +1,37 @@
-<div class="bg-white w-full h-full rounded-[inherit] overflow-hidden flex justify-center items-center">
-  <components-code-button (clicked)="onClick()" title="HIDE"/>
+<div class="bg-white w-full h-full rounded-[inherit] overflow-hidden flex justify-center items-end relative">
+
+  @if (videoStatus(); as status) {
+    @if (status.ready && status.url) {
+      <video
+        #videoEl
+        [src]="status.url"
+        playsinline
+        class="absolute z-0 inset-0 w-full h-full object-cover">
+      </video>
+    }
+  }
+  <components-logo class="absolute top-3 left-3 md:top-5 md:left-5 [&>svg]:w-8 [&>svg]:h-8 md:[&>svg]:w-10 md:[&>svg]:h-10"/>
+  <div class="absolute top-3 right-3 md:top-5 md:right-5 flex flex-col items-end">
+    <span class="font-calling-code text-sm md:text-md text-ink-soft">14 Avril 2026</span>
+    <span class="font-calling-code text-base md:text-xl text-ink">19:28</span>
+  </div>
+
+  @if(!videoEnded){
+    <components-code-button class="absolute w-full px-5 md:w-[10rem] bottom-5 md:right-5" (clicked)="onClick()" title="SKIP"/>
+  } @else {
+    <div class="flex flex-col z-10 m-3 md:m-5 w-full p-3 md:p-5 h-fit rounded-xl bg-white/55">
+      <h1 class="font-pixel-grid-point-s text-ink text-xl md:text-3xl max-w-[30rem]">BIENVENUE, JE SUIS MAËL MAINSARD CREATEUR DE SITE PERSONALISE 👋</h1>
+      <div class="flex w-full justify-between items-end mt-5 md:mt-10">
+        <div class="grid grid-cols-2 grid-rows-2 font-calling-code gap-x-3 md:gap-x-5 text-xs md:text-base text-ink-muted">
+          <span>INSTAGRAM</span>
+          <span>GITHUB</span>
+          <span>YOUTUBE</span>
+        </div>
+        <div class="flex items-center gap-1">
+          <span class="font-calling-code text-sm md:text-md">DISPONIBLE</span>
+          <div class="w-3 h-3 md:w-3.5 md:h-3.5 rounded-full bg-online"></div>
+        </div>
+      </div>
+    </div>
+  }
 </div>

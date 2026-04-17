@@ -1,7 +1,15 @@
-import { Injectable, Signal, signal } from '@angular/core';
+import {inject, Injectable, Signal, signal} from '@angular/core';
+import {HttpClient, HttpEventType} from '@angular/common/http';
+
+export interface VideoStatus {
+  ready: boolean;
+  url: string | null;
+}
 
 @Injectable({ providedIn: 'root' })
 export class VideoService {
+
+  private readonly VIDEO_URL = 'assets/COSTA_RICA.mp4';
 
   private readonly _progress = signal<number>(0);
   readonly progress: Signal<number> = this._progress.asReadonly();
@@ -9,35 +17,47 @@ export class VideoService {
   private readonly _loaderAnimationDone = signal<boolean>(false);
   readonly loaderAnimationDone: Signal<boolean> = this._loaderAnimationDone.asReadonly();
 
-  private intervalId: ReturnType<typeof setInterval> | null = null;
+  private readonly _videoStatus = signal<VideoStatus>({
+    ready: false,
+    url: null,
+  });
+  readonly videoStatus: Signal<VideoStatus> = this._videoStatus.asReadonly();
+
+  private httpService:HttpClient = inject(HttpClient);
 
   /**
-   * Lance une boucle qui incrémente le compteur de progression jusqu'à 100
-   * pour simuler un temps de chargement.
+   * Déclenche le signal de début de téléchargement et lance
+   * le téléchargement réel de la vidéo COSTA_RICA avec suivi de progression.
    */
   startLoading(): void {
-    if (this.intervalId !== null) return;
-
-    this._progress.set(0);
-    this._loaderAnimationDone.set(false);
-
-    this.intervalId = setInterval(() => {
-      const current = this._progress();
-
-      if (current >= 100) {
-        this.stopLoading();
-        return;
-      }
-
-      this._progress.set(current + 1);
-    }, 50);
+    this.downloadVideo().catch(() => {});
   }
 
-  private stopLoading(): void {
-    if (this.intervalId !== null) {
-      clearInterval(this.intervalId);
-      this.intervalId = null;
-    }
+  private async downloadVideo(): Promise<void> {
+
+    this.httpService.get(this.VIDEO_URL, {
+      responseType: 'blob',
+      reportProgress: true,
+      observe: 'events'
+    }).subscribe({
+      next: (event) => {
+        if (event.type === HttpEventType.DownloadProgress) {
+          this._progress.set(event.total ? Math.round((event.loaded / event.total) * 100) : 0)
+        }
+
+        if (event.type === HttpEventType.Response) {
+          const blob = event.body!;
+          this._videoStatus.set({
+            ready: true,
+            url: URL.createObjectURL(blob),
+          })
+        }
+      },
+      error: (err) => {
+
+      }
+    });
+
   }
 
   /**

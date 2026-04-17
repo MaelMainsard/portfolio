@@ -1,5 +1,5 @@
-<button (click)="onClick()" #codeButton [class]="'text-white min-w-[20rem] px-6 py-3 flex items-center justify-between cursor-pointer ' + (type() == ButtonType.PRIMARY ? 'bg-[#3a3a3a] hover:bg-[#4f4f4f]' : 'bg-[#F96666] hover:bg-[#ff7f7f]')"
-        style="clip-path: polygon(0 0, 100% 0, 100% 80%, 96% 100%, 0 100%)">
+<button (click)="onClick()" #codeButton [class]="'text-white w-full  px-6 py-3 flex items-center justify-between cursor-pointer ' + (type() == ButtonType.PRIMARY ? 'bg-primary hover:bg-primary-hover' : 'bg-accent hover:bg-accent-hover')"
+        style="clip-path: polygon(0 0, 100% 0, 100% 80%, calc(100% - 10px) 100%, 0 100%);">
   <span class="font-pixel-grid-square-s text-xl font-bold">{{title()}}</span>
   <svg lucideTriangle fill="white" class="rotate-90"></svg>
 </button>
