@@ -18,18 +18,55 @@ export class Home implements AfterViewInit {
   @ViewChild(Ecology,      { read: ElementRef }) ecology!: ElementRef;
   @ViewChild(Portability,  { read: ElementRef }) portability!: ElementRef;
   maxHero = signal<boolean>(true);
+  maxPrice = signal<boolean>(false);
   target!:DOMRect;
+  targetPrice!: DOMRect;
 
   constructor() {
     effect(() => {
       if (!this.maxHero()) {
         this.minHeroAnimation();
       }
+      if(this.maxPrice()) {
+        this.maxPriceAnimation();
+      }
+      else if(this.price) {
+        this.minPriceAnimation();
+      }
     });
   }
 
   ngAfterViewInit() {
     this.enterAnimation();
+  }
+
+  minPriceAnimation(): void {
+    gsap.to(this.price.nativeElement, {
+        top: this.targetPrice.top,
+        left: this.targetPrice.left,
+        width: this.targetPrice.width,
+        height: this.targetPrice.height,
+        duration: 0.8,
+        ease: 'back.inOut',
+        onComplete: () => {
+          gsap.set(this.price.nativeElement, {
+            clearProps: 'position,top,left,width,height,zIndex'
+          });
+        }
+      })
+  }
+
+  maxPriceAnimation(): void {
+    gsap.to(this.price.nativeElement, {
+      bottom: 8,
+      left: 8,
+      position: 'fixed',
+      zIndex: 100,
+      width: window.innerWidth - 8 * 2,
+      height: window.innerHeight - 8 * 2,
+      duration: 0.5,
+      ease: 'back.inOut'
+    })
   }
 
   minHeroAnimation(): void {
@@ -40,7 +77,7 @@ export class Home implements AfterViewInit {
         width: this.target.width,
         height: this.target.height,
         duration: 0.8,
-        ease: 'power2.inOut',
+        ease: 'back.inOut',
         onComplete: () => {
           gsap.set(this.hero.nativeElement, {
             clearProps: 'position,top,left,width,height,zIndex'
@@ -82,6 +119,7 @@ export class Home implements AfterViewInit {
     ];
 
     this.target = this.hero.nativeElement.getBoundingClientRect();
+    this.targetPrice = this.price.nativeElement.getBoundingClientRect();
 
     gsap.set(others, { opacity: 0, scale: 0, transformOrigin: 'center center' });
     gsap.set(this.hero.nativeElement, {
@@ -94,7 +132,7 @@ export class Home implements AfterViewInit {
       zIndex: 10
     });
 
-  gsap.to(this.hero.nativeElement, {
+    gsap.to(this.hero.nativeElement, {
         top: 8,
         left: 8,
         width: window.innerWidth - 8 * 2,
@@ -102,7 +140,7 @@ export class Home implements AfterViewInit {
         borderRadius: 16,
         padding: 4,
         duration: 0.3,
-        ease: 'power1.out'
+        ease: 'back.inOut'
       })
   }
 }

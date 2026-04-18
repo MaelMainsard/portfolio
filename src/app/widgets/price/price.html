@@ -1,3 +1,50 @@
-<div class="bg-white rounded-2xl w-full h-full">
-
+<div class="bg-white rounded-2xl w-full h-full overflow-hidden">
+  <div #slider class="flex h-full w-[200%]">
+    <div class="w-1/2 h-full flex flex-col text-center items-center justify-start p-5 pt-15">
+      <div class="font-calling-code flex flex-col items-center mb-15">
+        <h1 class="text-ink text-5xl">[CHOISISEZ UNE FORMULE]</h1>
+        <div class="flex flex-col md:flex-row items-center">
+          <h2 class="text-ink-soft">Ou revenez à la page principal</h2>
+          <components-code-button (clicked)="onComeBackClick()" class="w-[10rem] scale-50 md:-translate-x-8" [iconLeft]="true" [type]="ButtonType.DANGER" title="RETOUR"/>
+        </div>
+      </div>
+      <div class="flex flex-wrap flex-1 gap-15">
+        <components-price-card
+          title="STARTER"
+          class="flex-1 flex"
+          subtitle="Vitrine simple & professionnelle"
+          price="299€"
+          priceDescription="+ 15 €/mois hébergement & maintenance"
+          [features]="['Site one-page ou 3-4 pages statiques']"
+          (clicked)="onStarterSelect()"
+        />
+        <components-price-card
+          title="STARTER"
+          class="flex-1 flex"
+          [isPopular]="true"
+          subtitle="Vitrine simple & professionnelle"
+          price="299€"
+          priceDescription="+ 15 €/mois hébergement & maintenance"
+          [features]="['Site one-page ou 3-4 pages statiques']"
+          (clicked)="onStarterSelect()"
+        />
+        <components-price-card
+          title="STARTER"
+          class="flex-1 flex"
+          subtitle="Vitrine simple & professionnelle"
+          price="299€"
+          priceDescription="+ 15 €/mois hébergement & maintenance"
+          [features]="['Site one-page ou 3-4 pages statiques']"
+          (clicked)="onStarterSelect()"
+        />
+      </div>
+    </div>
+    <div class="w-1/2 h-full flex flex-col items-center gap-10 justify-between p-5">
+      <h2 class="font-calling-code text-ink text-xl">Votre site à partir de</h2>
+      <h1 class="font-pixel-grid-square-s text-black text-4xl md:text-5xl">300€</h1>
+      <button (click)="onClick()" class="bg-ink rounded-2xl py-3 w-full hover:bg-ink-soft cursor-pointer">
+        <span class="text-white font-pixel-grid-plastic-s md:text-xl text-md">DECOUVREZ LES FORMULES</span>
+      </button>
+    </div>
+  </div>
 </div>

@@ -15,6 +15,7 @@ export enum ButtonType {
 export class CodeButton {
   title: InputSignal<string> = input<string>("");
   type: InputSignal<ButtonType> = input<ButtonType>(ButtonType.PRIMARY);
+  iconLeft: InputSignal<boolean> = input<boolean>(false);
   clicked: OutputEmitterRef<void> = output<void>();
   protected readonly ButtonType = ButtonType;
   @ViewChild('codeButton') button!: ElementRef;

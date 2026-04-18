@@ -11,7 +11,7 @@ import gsap from 'gsap';
     Logo
   ],
   templateUrl: './hero.html',
-  host: { class: 'block w-full h-full' }
+  host: { class: 'block w-full' }
 })
 export class Hero {
   private readonly videoService = inject(VideoService);
