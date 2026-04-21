@@ -1,18 +1,14 @@
 import {
   AfterViewInit,
   Component,
-  effect,
   ElementRef,
-  Input,
   model,
   ModelSignal,
-  signal,
   ViewChild
 } from '@angular/core';
 import gsap from 'gsap';
 import {ButtonType, CodeButton} from '../../components/code-button/code-button';
-import {PriceCard} from '../../components/price-card/price-card';
-import {delay} from 'rxjs';
+import {PriceCard, PriceCardProps} from '../../components/price-card/price-card';
 
 @Component({
   selector: 'widget-price',
@@ -25,68 +21,90 @@ import {delay} from 'rxjs';
 })
 export class Price implements AfterViewInit {
   @ViewChild("slider") slider!: ElementRef;
+  protected readonly ButtonType = ButtonType;
+
+  prices: PriceCardProps[] = [
+    {
+      id: "card-starter",
+      title: "Starter",
+      subtitle: "Vitrine simple & professionnelle",
+      price: 299,
+      priceDescription: "+ 15 €/mois hébergement & maintenance",
+      features: [
+        "Site one-page ou 3–4 pages statiques",
+        "Présentation de l'univers & portfolio",
+        "Liens réseaux sociaux & boutiques (Etsy, Gumroad…)",
+        "Formulaire de contact",
+        "Responsive mobile",
+        "1 aller-retour de corrections inclus"
+      ],
+      isPopular: false
+    },
+    {
+      id: "card-studio",
+      title: "Studio",
+      subtitle: "Site vivant avec animations",
+      price: 649,
+      priceDescription: "+ 25 €/mois hébergement & maintenance",
+      features: [
+        "Tout le Starter",
+        "Jusqu'à 7 pages avec transitions animées",
+        "Galerie manga / illustrations interactive",
+        "Lecteur de chapitres (extrait gratuit)",
+        "Section actualités / blog simple",
+        "Intégration newsletter (Mailchimp, Brevo…)",
+        "3 allers-retours de corrections inclus"
+      ],
+      isPopular: true
+    },
+    {
+      id: "card-premium",
+      title: "Premium",
+      subtitle: "Expérience immersive sur-mesure",
+      price: 1290,
+      priceDescription: "+ 40 €/mois hébergement & maintenance",
+      features: [
+        "Tout le Studio",
+        "Design graphique entièrement personnalisé",
+        "Animations avancées (parallax, scroll…)",
+        "Boutique intégrée (vente directe, PDF…)",
+        "Espace membres / contenu exclusif",
+        "Dashboard auteur (stats, gestion)",
+        "Corrections illimitées sur 30 jours"
+      ],
+      isPopular: false
+    },
+  ];
 
   maxPrice: ModelSignal<boolean> = model<boolean>(false);
-  showPopular = signal<boolean>(false);
-  showContent = signal<boolean>(false);
-
 
   ngAfterViewInit(): void {
     gsap.set(this.slider.nativeElement, { xPercent: -50 });
+    gsap.set("#card-starter", {opacity: 0, y: -100});
+    gsap.set("#card-studio", {opacity: 0, y: 100});
+    gsap.set("#card-premium", {opacity: 0, y: -100});
   }
 
-  onStarterSelect():void {
-
+  onCardClick(card: PriceCardProps): void {
+    console.log('Card clicked:', card);
   }
-
 
   onClick(): void {
     this.maxPrice.set(true);
-    this.showPopular.set(true);
-
-
-    const tl = gsap.timeline({ defaults: {  ease: 'power2.inOut' } });
-
-    tl.to(this.slider.nativeElement, { xPercent: 0, duration: 0.8, onComplete: ()=> {
-      this.showContent.set(true);
-      } });
-      /*
-
- .fromTo(
-   [this.price1.nativeElement, this.price3.nativeElement],
-   { opacity: 0, y: -100 },
-   { opacity: 1, y: 0, delay: 0.2, duration: 1 },
-   '<'
- )
- .fromTo(
-   this.price2.nativeElement,
-   { opacity: 0, y: 100 },
-   { opacity: 1, y: 0, duration: 1 },
-   '<'
- );
-
-
-       */
+    gsap.to(this.slider.nativeElement, { xPercent: 0, duration: 0.8, ease: 'power2.inOut' });
+    gsap.to("#card-starter", { opacity: 1, y: 0, duration: 0.6, delay: 0.6, ease: 'power2.out' });
+    gsap.to("#card-studio", { opacity: 1, y: 0, duration: 0.6, delay: 0.8, ease: 'power2.out' });
+    gsap.to("#card-premium", { opacity: 1, y: 0, duration: 0.6, delay: 1.0, ease: 'power2.out' });
   }
 
-onComeBackClick(): void {
-  const tl = gsap.timeline({
-    defaults: { duration: 0.3, ease: 'power2.inOut' },
-    onComplete: () => {
-      this.showContent.set(false);
-      this.showPopular.set(false);
-      this.maxPrice.set(false);
-    }
-  });
-  gsap.to(this.slider.nativeElement, { xPercent: -50, delay: 0.5});
 
-  /*
-  tl.to([this.price1.nativeElement, this.price3.nativeElement], { opacity: 0, y: -60 })
-    .to(this.price2.nativeElement, { opacity: 0, y: 60 }, '<');
-
-   */
+  onComeBackClick(): void {
+    gsap.to("#card-starter", { opacity: 0, y: -100, duration: 0.4, delay: 0, ease: 'power2.in' });
+    gsap.to("#card-studio", { opacity: 0, y: 100, duration: 0.4, delay: 0.15, ease: 'power2.in' });
+    gsap.to("#card-premium", { opacity: 0, y: -100, duration: 0.4, delay: 0.3, ease: 'power2.in', onComplete:()=>{
+        this.maxPrice.set(false);
+    }});
+    gsap.to(this.slider.nativeElement, { xPercent: -50, duration: 0.8, delay: 0.7, ease: 'power2.inOut' });
   }
-
-  protected readonly ButtonType = ButtonType;
 
 }

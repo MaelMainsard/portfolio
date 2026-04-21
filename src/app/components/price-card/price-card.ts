@@ -1,6 +1,6 @@
 import {
-  AfterViewInit,
-  Component, effect,
+  Component,
+  effect,
   ElementRef,
   input,
   InputSignal,
@@ -13,6 +13,16 @@ import {CodeButton} from '../code-button/code-button';
 import {Corner} from '../corner/corner';
 import gsap from 'gsap';
 
+export interface PriceCardProps {
+  id:string;
+  title: string;
+  subtitle: string;
+  price: number;
+  priceDescription: string;
+  isPopular: boolean;
+  features: string[];
+}
+
 @Component({
   selector: 'components-price-card',
   imports: [Triangle, CodeButton, Corner],
@@ -21,13 +31,8 @@ import gsap from 'gsap';
 })
 export class PriceCard {
 
-  title: InputSignal<string> = input<string>('');
-  subtitle: InputSignal<string> = input<string>('');
-  price: InputSignal<string> = input<string>('');
-  priceDescription: InputSignal<string> = input<string>('');
-  isPopular: InputSignal<boolean> = input<boolean>(false);
-  features: InputSignal<string[]> = input<string[]>([]);
-  clicked: OutputEmitterRef<void> = output<void>();
+  data: InputSignal<PriceCardProps> = input.required<PriceCardProps>();
+  clicked: OutputEmitterRef<PriceCardProps> = output<PriceCardProps>();
 
   @ViewChild('popularFrame') popularFrame!: ElementRef;
   @ViewChild('card') card!: ElementRef;
@@ -35,7 +40,7 @@ export class PriceCard {
 
   constructor() {
     effect(() => {
-      const isPopular = this.isPopular();
+      const isPopular = this.data().isPopular;
       if (!this.card || !this.popularFrame) return;
 
       const card = this.card.nativeElement;
