@@ -10,8 +10,7 @@ import gsap from 'gsap';
     CodeButton,
     Logo
   ],
-  templateUrl: './hero.html',
-  host: { class: 'block w-full' }
+  templateUrl: './hero.html'
 })
 export class Hero {
   private readonly videoService = inject(VideoService);

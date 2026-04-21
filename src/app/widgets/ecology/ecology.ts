@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input, signal} from '@angular/core';
 import {LucideSprout} from '@lucide/angular';
 
 @Component({
@@ -7,7 +7,7 @@ import {LucideSprout} from '@lucide/angular';
     LucideSprout
   ],
   templateUrl: './ecology.html',
-  host: { class: 'block w-full overflow-hidden' }
 
 })
-export class Ecology {}
+export class Ecology {
+}

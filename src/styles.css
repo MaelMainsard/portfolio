@@ -93,3 +93,9 @@
     --color-accent-hover: #ff7f7f;
     --color-online: #77AE5F;
 }
+
+@layer base {
+  body {
+    background-color: black;
+  }
+}

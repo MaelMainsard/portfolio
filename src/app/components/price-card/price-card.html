@@ -1,10 +1,13 @@
-<div #card class="h-full max-w-[20rem] bg-white border flex flex-col border-line">
 
-  <div #popularFrame class="opacity-0">
-    <components-corner class="absolute -top-5 -left-5"/>
-    <components-corner class="absolute -top-5 -right-5 rotate-90"/>
+<div #card class="h-full max-w-[20rem] items-center bg-white border p-4 flex flex-col border-line">
+
+  <div #popularFrame class="opacity-0 flex justify-center">
+    <components-corner class="absolute -top-10 -left-5"/>
+    <components-corner class="absolute -top-10 -right-5 rotate-90"/>
     <components-corner class="absolute -bottom-5 -left-5 -rotate-90"/>
     <components-corner class="absolute -bottom-5 -right-5 rotate-180"/>
+    <h1 #popularTitle class="font-calling-code absolute -top-10">[SYS_INFO :: POPULAIRE]</h1>
+
   </div>
 
 
@@ -16,26 +19,26 @@
     <h2 class="font-calling-code text-ink-soft text-sm">{{ subtitle() }}</h2>
   </div>
 
-  <hr class="border-line mx-6" />
+  <hr class="border-line mx-6 w-full" />
 
   <div class="flex flex-col items-center px-6 py-3 gap-2">
     <h1 class="font-pixel-grid-square-s text-4xl text-black">{{ price() }}</h1>
     <p class="font-calling-code text-ink-muted text-sm">{{ priceDescription() }}</p>
   </div>
 
-  <hr class="border-line mx-6" />
+  <hr class="border-line mx-6 w-full" />
 
-  <ul class="flex flex-col gap-3 px-10 p-3 flex-1 min-h-0">
+  <ul class="flex flex-col gap-3 p-3 flex-1 min-h-0">
     @for (feature of features(); track feature) {
-      <li class="flex items-start gap-3 font-calling-code text-ink-soft text-base">
-        <span class="text-ink-muted leading-none text-xl">○</span>
-        <span>{{ feature }}</span>
+      <li class="flex items-start gap-4 font-calling-code text-ink-soft text-base">
+        <span class="text-ink-muted leading-none text-lg">○</span>
+        <span class="text-sm text-start">{{ feature }}</span>
       </li>
     }
   </ul>
 
-  <hr class="border-line mx-6" />
+  <hr class="border-line mx-6 w-full" />
 
-  <components-code-button class="p-4" (clicked)="clicked.emit()" title="CHOISIR"/>
+  <components-code-button class="w-full" (clicked)="clicked.emit()" title="CHOISIR"/>
 
 </div>

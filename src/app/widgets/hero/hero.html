@@ -1,12 +1,11 @@
-<div class="bg-white w-full h-full rounded-[inherit] overflow-hidden flex justify-center items-end relative">
-
+<div class="relative flex items-end w-full h-full min-h-[25rem] rounded-2xl bg-white overflow-hidden ">
   @if (videoStatus(); as status) {
-    @if (status.ready && status.url) {
+    @if (!status.ready && status.url) {
       <video
         #videoEl
         [src]="status.url"
         playsinline
-        class="absolute z-0 inset-0 w-full h-full object-cover">
+        class="z-0 inset-0 w-full h-full object-cover">
       </video>
     }
   }
@@ -28,7 +27,7 @@
           <span>YOUTUBE</span>
         </div>
         <div class="flex items-center gap-1">
-          <span class="font-calling-code text-sm md:text-md">DISPONIBLE</span>
+          <span class="font-calling-code text-ink text-sm md:text-md">DISPONIBLE</span>
           <div class="w-3 h-3 md:w-3.5 md:h-3.5 rounded-full bg-online"></div>
         </div>
       </div>

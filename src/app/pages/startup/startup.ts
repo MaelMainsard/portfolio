@@ -37,7 +37,7 @@ export class Startup implements AfterViewInit {
   }
 
   cookieStatus(): CookieStatus {
-    return CookieStatus.UNKNOWN;
+    return CookieStatus.ACCEPTED;
   }
 
   logoStartupAnimation(): void {
