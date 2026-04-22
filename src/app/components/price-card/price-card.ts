@@ -32,6 +32,7 @@ export interface PriceCardProps {
 export class PriceCard {
 
   data: InputSignal<PriceCardProps> = input.required<PriceCardProps>();
+  buttonText: InputSignal<string> = input<string>("CHOISIR");
   clicked: OutputEmitterRef<PriceCardProps> = output<PriceCardProps>();
 
   @ViewChild('popularFrame') popularFrame!: ElementRef;

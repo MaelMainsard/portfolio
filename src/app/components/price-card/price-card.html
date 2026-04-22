@@ -40,6 +40,6 @@
   <hr class="border-line mx-6 mb-4 w-full" />
 
 
-  <components-code-button class="w-full" (clicked)="clicked.emit(data())" title="CHOISIR"/>
+  <components-code-button class="w-full" (clicked)="clicked.emit(data())" [title]="buttonText()"/>
 
 </div>

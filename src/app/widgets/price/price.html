@@ -1,18 +1,24 @@
 <div class="bg-white rounded-2xl h-full overflow-hidden">
   <div #slider class="w-[200%] h-full flex flex-row">
-    <div [class]="(!maxPrice() ? ' max-h-[15rem]' : '') +' w-1/2 p-5 pt-8 items-center flex flex-col overflow-y-scroll lg:overflow-hidden'">
-      <div class="flex flex-col font-calling-code text-center items-center mb-10">
-        <h1 class="text-ink text-5xl">[CHOISISEZ UNE FORMULE]</h1>
-        <div class="flex flex-col md:flex-row items-center">
-          <h2 class="text-ink-soft">Ou revenez à la page principal</h2>
-          <components-code-button (clicked)="onComeBackClick()" class="w-[10rem] scale-50 md:-translate-x-8" [iconLeft]="true" [type]="ButtonType.DANGER" title="RETOUR"/>
-        </div>
-      </div>
-      <div  class="flex flex-wrap justify-center gap-15 h-full">
-        @for(card of prices; track card.id){
-          <components-price-card [id]="card.id" [data]="card" (clicked)="onCardClick($event)"/>
+    <div [class]="(!maxPrice() ? ' max-h-[15rem]' : '') +' w-1/2 overflow-y-scroll lg:overflow-hidden'">
+        @if(!showContact()){
+          <div class="h-full w-full p-5 pt-8 items-center justify-center flex flex-col">
+            <div  class="flex flex-col font-calling-code text-center items-center mb-10">
+              <h1 class="text-ink text-5xl">[CHOISISEZ UNE FORMULE]</h1>
+              <div class="flex flex-col md:flex-row items-center">
+                <h2 class="text-ink-soft">Ou revenez à la page principal</h2>
+                <components-code-button (clicked)="onComeBackClick()" class="w-[10rem] scale-50 md:-translate-x-8" [iconLeft]="true" [type]="ButtonType.DANGER" title="RETOUR"/>
+              </div>
+            </div>
+            <div class="flex w-full relative flex-wrap items-center justify-center gap-15 h-full">
+              @for(card of prices; track card.id){
+                <components-price-card [id]="card.id" [data]="card" (clicked)="onCardClick($event)"/>
+              }
+            </div>
+          </div>
+        } @else {
+          <widget-contact [pickedCard]="pickedCard" [(showContact)]="showContact"/>
         }
-      </div>
     </div>
     <div class="w-1/2 h-full flex flex-col  justify-between items-center p-8">
       <h2 class="font-calling-code text-ink text-xl">Votre site à partir de</h2>
