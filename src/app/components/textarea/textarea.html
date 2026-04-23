@@ -1,8 +1,31 @@
 <div class="w-full gap-4 font-calling-code">
-  <span class="text-xl text-ink-soft">[{{title}}]</span>
+  <label [class]="(showDirty() ? 'text-accent' : 'text-ink-soft')+' text-xl'">[{{label}}]</label>
   <div [class]="(isField ? 'h-36': 'h-16')+' mt-2 relative'">
-    <components-triangle class="absolute top-2 right-2 "/>
-    <components-triangle class="absolute rotate-180 bottom-1 left-1"/>
-    <input class="w-full h-full px-6 border-2 text-xl border-ink-soft outline-none focus:border-ink">
+    <components-triangle [showLine]="isFocused" [danger]="showDirty()" #right class="absolute top-2 right-2"/>
+    <components-triangle [showLine]="isFocused" [danger]="showDirty()" #left class="absolute bottom-2 left-2 rotate-180"/>
+    @if (isField) {
+      <textarea
+        (focusin)="onFocusIn()"
+        (focusout)="onFocusOut()"
+        [formField]="formField()"
+        data-form-type="other"
+        [class]="'items-start resize-none ' + (isFocused ? 'px-4' : 'px-8') + ' flex w-full h-full pt-3 border-2 text-xl border-ink-soft outline-none'"
+      ></textarea>
+    } @else {
+      <input
+        (focusin)="onFocusIn()"
+        (focusout)="onFocusOut()"
+        [type]="type"
+        [formField]="formField()"
+        data-form-type="other"
+        autocomplete="on"
+        [class]="'items-center ' + (isFocused ? 'px-4' : 'px-8') + ' flex w-full h-full border-2 text-xl border-ink-soft outline-none'"
+      >
+    }
+  </div>
+  <div #dirtyGroup class="text-accent text-sm font-calling-code whitespace-nowrap h-0 overflow-hidden opacity-0">
+      <span class="flex flex-row items-center">
+        [<span #dirtyMsg></span>]
+      </span>
   </div>
 </div>

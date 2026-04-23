@@ -1,3 +1,6 @@
 <svg width="16.5" height="16.5" viewBox="0 0 16.5 16.5" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M35 35L0 0H35V35Z" fill="#545454"/>
+  <path d="M35 35L0 0H35V35Z" [attr.fill]="danger ? '#F96666' : '#545454'"/>
+  @if(showLine){
+    <line x1="-27.105" y1="-27.105" x2="43.605" y2="43.605" stroke="white" stroke-width="3"/>
+  }
 </svg>

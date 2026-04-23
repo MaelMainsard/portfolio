@@ -14,6 +14,10 @@ import gsap from 'gsap';
 import {Cross} from '../../components/cross/cross';
 import {Textarea} from '../../components/textarea/textarea';
 import {CodeButton} from '../../components/code-button/code-button';
+import {email, form, FormField, minLength, required, submit} from '@angular/forms/signals';
+import {FormsModule} from '@angular/forms';
+import sgMail from '@sendgrid/mail';
+import {environment} from '../../../environments/environment';
 
 @Component({
   selector: 'widget-contact',
@@ -21,7 +25,9 @@ import {CodeButton} from '../../components/code-button/code-button';
     PriceCard,
     Cross,
     Textarea,
-    CodeButton
+    CodeButton,
+    FormField,
+    FormsModule
   ],
   templateUrl: './contact.html'
 })
@@ -34,9 +40,40 @@ export class Contact implements AfterViewInit {
 
   pickedCard: InputSignal<PriceCardProps> = input.required<PriceCardProps>();
   showContact = model<boolean>(false);
+  isSubmitted = signal<boolean>(false);
   crosses = Array.from({ length: 7 }, (_, i) => i);
 
+  contactModel = signal({
+    surname: '',
+    name: '',
+    email: '',
+    project_description: '',
+  });
+
+  contactForm = form(this.contactModel, (schemaPath) => {
+    required(schemaPath.surname, {message: 'PRENOM REQUIS'});
+    required(schemaPath.name, {message: 'NOM REQUIS'});
+    required(schemaPath.email, {message: 'EMAIL REQUIS'});
+    email(schemaPath.email, {message: 'EMAIL INVALID'});
+    required(schemaPath.project_description, {message: 'DESCRIPTION DU PROJET REQUIS'});
+    minLength(schemaPath.project_description, 10 , { message: 'DESCRIPTION DU PROJET INSUFISANTE'});
+  });
+
+  onSubmit(event: Event) {
+    event.preventDefault();
+    this.isSubmitted.set(true);
+    const msg = {
+      to: 'mainsardm@gmail.com',
+      from: 'portolio@mainsard.com',
+      subject: 'Sending with SendGrid is Fun',
+      text: this.contactModel().toString(),
+      html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+    }
+  }
+
   ngAfterViewInit() {
+    //sgMail.setApiKey(environment.SENDGRID_API_KEY);
+
     gsap.fromTo(this.priceCard.nativeElement,
       { opacity: 0, y: 100, duration: 0.4 },
       { opacity: 1, y: 0, duration: 0.4 },
