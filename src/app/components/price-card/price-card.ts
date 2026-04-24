@@ -33,6 +33,7 @@ export class PriceCard {
 
   data: InputSignal<PriceCardProps> = input.required<PriceCardProps>();
   buttonText: InputSignal<string> = input<string>("CHOISIR");
+  showPopular: InputSignal<boolean> = input<boolean>(false);
   clicked: OutputEmitterRef<PriceCardProps> = output<PriceCardProps>();
 
   @ViewChild('popularFrame') popularFrame!: ElementRef;
@@ -41,15 +42,11 @@ export class PriceCard {
 
   constructor() {
     effect(() => {
-      const isPopular = this.data().isPopular;
-      if (!this.card || !this.popularFrame) return;
-
-      const card = this.card.nativeElement;
-      const frame = this.popularFrame.nativeElement;
-
-      gsap.timeline()
-        .to(card, { scale: isPopular ? 0.93 : 1, delay: 0.8, ease: "power2.inOut" })
-        .set(frame, { opacity: isPopular ? 1 : 0 , ease: "power2.inOut"}, isPopular ? '>' : '<');
+      if(this.data().isPopular && this.card && this.popularFrame){
+        gsap.timeline()
+          .to(this.card.nativeElement, { scale: this.showPopular() ? 0.93 : 1, delay: 0.8, ease: "power2.inOut" })
+          .set(this.popularFrame.nativeElement, { opacity: this.showPopular() ? 1 : 0 , ease: "power2.inOut"}, this.showPopular() ? '>' : '<');
+      }
     });
   }
 

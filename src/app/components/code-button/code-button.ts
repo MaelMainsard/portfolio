@@ -22,21 +22,17 @@ export class CodeButton {
   protected readonly ButtonType = ButtonType;
   @ViewChild('codeButton') button!: ElementRef;
 
-  onClick() {
-    gsap.timeline()
-      .to(this.button.nativeElement, { scale: 0.95, duration: 0.08, ease: "power2.in" })
-      .to(this.button.nativeElement, { scale: 1.05, duration: 0.1, ease: "back.out(3)" })
-      .to(this.button.nativeElement, { scale: 1, duration: 0.15, ease: "power2.out", onComplete: () => this.clicked.emit() });
-  }
 
-  onError() {
-    gsap.timeline()
-      .to(this.button.nativeElement, { scaleX: 1.02, scaleY: 0.95, duration: 0.05, ease: "power2.out" })
-      .to(this.button.nativeElement, { scaleX: 0.98, skewX: 2, duration: 0.05 })
-      .to(this.button.nativeElement, { scaleX: 1, scaleY: 1, skewX: 0, duration: 0.1 })
-      .to(this.button.nativeElement, { x: -3, duration: 0.03 })
-      .to(this.button.nativeElement, { x: 3, duration: 0.03 })
-      .to(this.button.nativeElement, { x: -2, duration: 0.03 })
-      .to(this.button.nativeElement, { x: 0, duration: 0.03 });
+  onClick() {
+    if(!this.disabled){
+      gsap.timeline({onComplete:()=>{ this.clicked.emit() }})
+        .to(this.button.nativeElement, { scaleX: 1.02, scaleY: 0.95, duration: 0.05, ease: "power2.out" })
+        .to(this.button.nativeElement, { scaleX: 0.98, skewX: 2, duration: 0.05 })
+        .to(this.button.nativeElement, { scaleX: 1, scaleY: 1, skewX: 0, duration: 0.1 })
+        .to(this.button.nativeElement, { x: -3, duration: 0.03 })
+        .to(this.button.nativeElement, { x: 3, duration: 0.03 })
+        .to(this.button.nativeElement, { x: -2, duration: 0.03 })
+        .to(this.button.nativeElement, { x: 0, duration: 0.03 });
+    }
   }
 }

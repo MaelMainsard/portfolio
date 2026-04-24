@@ -8,6 +8,7 @@
         (focusin)="onFocusIn()"
         (focusout)="onFocusOut()"
         [formField]="formField()"
+        (input)="onInputChange()"
         data-form-type="other"
         [class]="'items-start resize-none ' + (isFocused ? 'px-4' : 'px-8') + ' flex w-full h-full pt-3 border-2 text-xl border-ink-soft outline-none'"
       ></textarea>
@@ -17,13 +18,14 @@
         (focusout)="onFocusOut()"
         [type]="type"
         [formField]="formField()"
+        (input)="onInputChange()"
         data-form-type="other"
         autocomplete="on"
         [class]="'items-center ' + (isFocused ? 'px-4' : 'px-8') + ' flex w-full h-full border-2 text-xl border-ink-soft outline-none'"
       >
     }
   </div>
-  <div #dirtyGroup class="text-accent text-sm font-calling-code whitespace-nowrap h-0 overflow-hidden opacity-0">
+  <div #dirtyGroup class="text-accent text-xs sm:text-sm font-calling-code whitespace-nowrap h-0 overflow-hidden opacity-0">
       <span class="flex flex-row items-center">
         [<span #dirtyMsg></span>]
       </span>

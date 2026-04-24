@@ -5,7 +5,7 @@ import {
   ElementRef,
   input,
   Input,
-  InputSignal,
+  InputSignal, model, ModelSignal,
   Optional,
   Self, signal,
   ViewChild
@@ -31,7 +31,6 @@ export class Textarea {
   @Input() label: string = '';
   @Input() isField: boolean = false;
   @Input() type: string = 'text';
-  isSubmitted: InputSignal<boolean> = input<boolean>(false);
   formField = input.required<any>({alias: 'formField'});
 
   showDirty = signal<boolean>(false);
@@ -39,41 +38,34 @@ export class Textarea {
   oldDirtyReason:string = '';
   protected isFocused: boolean = false;
 
-  private dirtyTimeout: any = null;
 
-  constructor() {
-    effect(() => {
-      const isSubmitted = this.isSubmitted();
-      const invalid = this.formField()().invalid();
-      const valid = this.formField()().valid();
-      const errors = this.formField()().errors();
+  onInputChange() {
+    setTimeout(() => {
+      this.invalidHandling();
+    },1000)
+  }
 
-      // Annuler le précédent appel
-      if (this.dirtyTimeout) {
-        clearTimeout(this.dirtyTimeout);
+  invalidHandling():void {
+    const invalid = this.formField()().invalid();
+    const errors = this.formField()().errors();
+    if(invalid){
+      const newReason = "SYS_ERR :: " + errors[0].message;
+      if (!this.showDirty()) {
+        this.dirtyReason = newReason;
+        this.oldDirtyReason = newReason;
+        this.showDirty.set(true);
+        this.openDirtyGroup();
+      } else if (newReason !== this.oldDirtyReason) {
+        this.dirtyReason = newReason;
+        this.changeDirtyGroup();
+        this.oldDirtyReason = newReason;
       }
-
-      this.dirtyTimeout = setTimeout(() => {
-        if (isSubmitted && invalid) {
-          const newReason = "SYS_ERR :: " + errors[0].message;
-          if (!this.showDirty()) {
-            this.dirtyReason = newReason;
-            this.oldDirtyReason = newReason;
-            this.showDirty.set(true);
-            this.openDirtyGroup();
-          } else if (newReason !== this.oldDirtyReason) {
-            this.dirtyReason = newReason;
-            this.changeDirtyGroup();
-            this.oldDirtyReason = newReason;
-          }
-        }
-        else if (valid && this.showDirty()) {
-          this.showDirty.set(false);
-          this.oldDirtyReason = '';
-          this.closeDirtyGroup();
-        }
-      }, 300);
-    });
+    }
+    else {
+      this.showDirty.set(false);
+      this.oldDirtyReason = '';
+      this.closeDirtyGroup();
+    }
   }
 
   openDirtyGroup(): void {

@@ -1,21 +1,21 @@
 <div class="w-full h-full flex xl:flex-row flex-col overflow-y-scroll justify-between">
-  <div class="flex-1 m-15 mr-30 flex flex-col justify-start gap-4">
+  <div class="flex-1 m-10 sm:m-15 xl:mr-30 flex flex-col justify-start gap-4">
     <div #titleGroup class="flex flex-col xl:text-start text-center gap-2">
-      <h1 class="text-ink font-code font-bold text-5xl whitespace-nowrap">INFORMATION PERSONNELS</h1>
+      <h1 class="text-ink font-code font-bold text-5xl sm:whitespace-nowrap">INFORMATION PERSONNELS</h1>
       <h2 class="text-ink-muted font-calling-code ">Renseignez vos coordonnées. Je vous recontacte sous 48h pour discuter de votre projet.</h2>
     </div>
     <form novalidate (ngSubmit)="onSubmit($event)" class="flex flex-col gap-2">
-      <components-textarea [formField]="contactForm.surname" [isSubmitted]="isSubmitted()" type="text" label="PRENOM*"/>
-      <components-textarea [formField]="contactForm.name" [isSubmitted]="isSubmitted()" type="text" label="NOM*"/>
-      <components-textarea [formField]="contactForm.email" [isSubmitted]="isSubmitted()" type="email" label="EMAIL*"/>
-      <components-textarea [formField]="contactForm.project_description" [isSubmitted]="isSubmitted()" type="text" label="DECRIS TON PROJET*" [isField]="true"/>
+      <components-textarea [formField]="contactForm.surname"  type="text" label="PRENOM*"/>
+      <components-textarea [formField]="contactForm.name"  type="text" label="NOM*"/>
+      <components-textarea [formField]="contactForm.email"  type="email" label="EMAIL*"/>
+      <components-textarea [formField]="contactForm.project_description" type="text" label="DECRIS TON PROJET*" [isField]="true"/>
       <components-code-button [disabled]="contactForm().invalid()" buttonType="submit" class="w-full mt-4" title="ENVOYER"/>
     </form>
   </div>
-  <div class="flex xl:flex-col flex-row h-full justify-between xl:py-20 px-20">
+  <div class="flex xl:flex-col flex-row h-full justify-between pt-10 xl:py-20 sm:px-20 px-5">
     @for (i of crosses; track i) {
       <components-cross class="opacity-0"/>
     }
   </div>
-  <components-price-card class="flex justify-center items-center my-20 mx-30" [data]="pickedCard()" buttonText="CHANGER" (clicked)="onChangeClick()"/>
+  <components-price-card class="flex justify-center items-center my-20 sm:mx-30" [data]="pickedCard()" buttonText="CHANGER" (clicked)="onChangeClick()"/>
 </div>

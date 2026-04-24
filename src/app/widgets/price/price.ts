@@ -81,8 +81,8 @@ export class Price implements AfterViewInit {
   pickedCard!: PriceCardProps;
 
   maxPrice: ModelSignal<boolean> = model<boolean>(false);
-  triggerEnterAnimation = signal<boolean>(false)
   showContact = signal<boolean>(false);
+  showPopular = signal<boolean>(false);
 
   injector = inject(Injector);
 
@@ -122,7 +122,10 @@ export class Price implements AfterViewInit {
     gsap.to(this.slider.nativeElement, { xPercent: 0, duration: 0.8, ease: 'power2.inOut'});
     gsap.fromTo("#card-starter", { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.6, ease: 'power2.out' });
     gsap.fromTo("#card-studio", { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.8, ease: 'power2.out' });
-    gsap.fromTo("#card-premium", { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 0.6, delay: 1.0, ease: 'power2.out' });
+    gsap.fromTo("#card-premium", { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 0.6, delay: 1.0, ease: 'power2.out', onComplete:()=>{
+        this.showPopular.set(true);
+    }});
+
   }
 
 
