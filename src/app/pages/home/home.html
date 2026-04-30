@@ -2,7 +2,7 @@
 
   <widget-hero [(maxHero)]="maxHero" class="lg:col-span-2 lg:row-span-2 lg:col-start-1 lg:row-start-1"/>
   <widget-price [(maxPrice)]="maxPrice" class="lg:col-span-2 lg:col-start-1 lg:row-start-3"/>
-  <widget-realisations class="lg:col-span-2 lg:row-span-2 lg:col-start-3 lg:row-start-1"/>
+  <widget-realisations [isHeroMin]="!maxHero()"  class="lg:col-span-2 lg:row-span-2 lg:col-start-3 lg:row-start-1"/>
 
   <div class="w-full gap-2 flex flex-col md:flex-row lg:contents">
     <widget-ecology class="lg:col-start-3 lg:row-start-3"/>

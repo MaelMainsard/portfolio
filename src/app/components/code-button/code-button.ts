@@ -1,27 +1,34 @@
-import {Component, ElementRef, Input, input, InputSignal, output, OutputEmitterRef, ViewChild} from '@angular/core';
-import { LucideTriangle } from '@lucide/angular';
+import {Component, ElementRef, Input, output, OutputEmitterRef, ViewChild} from '@angular/core';
+import {LucideDynamicIcon, LucideTriangle, LucideX} from '@lucide/angular';
 import gsap from 'gsap';
 
-export enum ButtonType {
+export enum ButtonSeverity {
   PRIMARY = 'primary',
   DANGER = 'danger',
 }
 
+export enum ButtonDirection {
+  RIGHT = 'right',
+  LEFT = 'left',
+}
+
 @Component({
   selector: 'components-code-button',
-  imports: [LucideTriangle],
+  imports: [LucideDynamicIcon],
   templateUrl: './code-button.html',
 })
 export class CodeButton {
-  title: InputSignal<string> = input<string>("");
-  type: InputSignal<ButtonType> = input<ButtonType>(ButtonType.PRIMARY);
-  @Input() buttonType: string = "";
+
+  @Input() severity: ButtonSeverity = ButtonSeverity.PRIMARY;
   @Input() disabled: boolean = false;
-  iconLeft: InputSignal<boolean> = input<boolean>(false);
-  clicked: OutputEmitterRef<void> = output<void>();
-  protected readonly ButtonType = ButtonType;
+  @Input() title:string = "Titre du bouton";
+  @Input() type:string = "";
+  @Input() buttonDirection:ButtonDirection = ButtonDirection.RIGHT;
   @ViewChild('codeButton') button!: ElementRef;
 
+  clicked: OutputEmitterRef<void> = output<void>();
+  protected triangle = LucideTriangle;
+  protected cross = LucideX;
 
   onClick() {
     if(!this.disabled){
@@ -35,4 +42,7 @@ export class CodeButton {
         .to(this.button.nativeElement, { x: 0, duration: 0.03 });
     }
   }
+
+  protected readonly ButtonSeverity = ButtonSeverity;
+  protected readonly ButtonDirection = ButtonDirection;
 }

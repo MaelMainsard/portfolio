@@ -1,9 +1,10 @@
 import {
+  AfterViewInit,
   Component,
   effect,
-  ElementRef,
+  ElementRef, Input,
   input,
-  InputSignal,
+  InputSignal, OnInit,
   output,
   OutputEmitterRef,
   ViewChild
@@ -29,23 +30,37 @@ export interface PriceCardProps {
   templateUrl: './price-card.html',
   host: { class: 'block relative' }
 })
-export class PriceCard {
+export class PriceCard implements AfterViewInit {
 
   data: InputSignal<PriceCardProps> = input.required<PriceCardProps>();
   buttonText: InputSignal<string> = input<string>("CHOISIR");
   showPopular: InputSignal<boolean> = input<boolean>(false);
+  @Input() showPicked: boolean = false;
   clicked: OutputEmitterRef<PriceCardProps> = output<PriceCardProps>();
 
   @ViewChild('popularFrame') popularFrame!: ElementRef;
   @ViewChild('card') card!: ElementRef;
-  @ViewChild("popularTitle") popularTitle!: ElementRef;
+
+  private viewReady:boolean = false;
+
+  ngAfterViewInit(): void {
+    this.viewReady = true;
+  }
 
   constructor() {
     effect(() => {
-      if(this.data().isPopular && this.card && this.popularFrame){
-        gsap.timeline()
-          .to(this.card.nativeElement, { scale: this.showPopular() ? 0.93 : 1, delay: 0.8, ease: "power2.inOut" })
-          .set(this.popularFrame.nativeElement, { opacity: this.showPopular() ? 1 : 0 , ease: "power2.inOut"}, this.showPopular() ? '>' : '<');
+      const frame = this.popularFrame;
+      const cardEl = this.card;
+      const animate = this.showPopular();
+
+      if(this.data().isPopular && this.viewReady) {
+        if (animate) {
+          gsap.set(frame.nativeElement, { opacity: 1 });
+          gsap.to(cardEl.nativeElement, { scale: 0.9, ease:"back.inOut" });
+        } else {
+          gsap.set(frame.nativeElement, { opacity: 0 });
+          gsap.to(cardEl.nativeElement, { scale: 1, ease:"back.inOut" });
+        }
       }
     });
   }

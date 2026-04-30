@@ -1,0 +1,29 @@
+<div #popupContainer class="fixed flex z-100 w-screen h-screen justify-center items-center">
+  <div #popup (onResize)="onPopupResize($event)"  class="border-2 relative border-ink w-full h-full max-w-130 max-h-80 m-10  bg-white">
+    <div  class="absolute z-0 flex w-full h-full justify-center">
+      <components-corner class="absolute -top-1.5 -left-1.5"/>
+      <components-corner class="absolute -top-1.5 -right-1.5 rotate-90"/>
+      <components-corner class="absolute -bottom-1.5 -left-1.5 -rotate-90"/>
+      <components-corner class="absolute -bottom-1.5 -right-1.5 rotate-180"/>
+    </div>
+    <div class="absolute w-full h-full flex flex-col justify-between z-10 p-5">
+      <div #header class="flex flex-col text-center">
+        <div class="flex flex-row items-center justify-center">
+          <div class="flex flex-row relative">
+            <components-dash [width]="25" [height]="15"/>
+            <components-dash class="absolute right-2" [width]="25" [height]="15"/>
+          </div>
+          <h1 [class]="(titleMultiline() ? 'hidden' : 'block')+' font-pixel-grid-square-s text-xl mr-2'">[SYS_INFO :: TRANSMISSION REÇUE]</h1>
+          <h1 [class]="(titleMultiline() ? ' block' : 'hidden')+' font-pixel-grid-square-s text-xl mr-2'">[SYS_INFO]</h1>
+          <components-arrow-down-right [size]="15"/>
+        </div>
+        <h1 [class]="(titleMultiline() ? 'block': 'hidden')+' font-pixel-grid-square-s text-xl mr-2'">TRANSMISSION REÇUE</h1>
+        <hr class="border-line h-2 w-full my-4" />
+      </div>
+      <div #footer class="flex flex-col gap-1 w-full">
+        <hr class="border-line h-2 w-full" />
+        <components-code-button class="w-full" title="FERMER" [severity]="ButtonSeverity.DANGER"/>
+      </div>
+    </div>
+  </div>
+</div>

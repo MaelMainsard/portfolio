@@ -45,7 +45,7 @@
 
     <div class="flex md:flex-row flex-col md:gap-20 gap-3 mx-[1rem]">
       <components-code-button class="opacity-0 min-w-[20rem]" (clicked)="onAcceptClick()" id="accept" title="ACCEPTER"/>
-      <components-code-button class="opacity-0 min-w-[20rem]" (clicked)="onDeclineClick()" id="decline" title="REFUSER" [type]="ButtonType.DANGER"/>
+      <components-code-button class="opacity-0 min-w-[20rem]" (clicked)="onDeclineClick()" id="decline" title="REFUSER" [severity]="ButtonSeverity.DANGER"/>
     </div>
   </div>
 

@@ -9,7 +9,7 @@ import {
   ViewChildren
 } from '@angular/core';
 import {ArrowDownRight} from '../../components/arrow-down-right/arrow-down-right';
-import {ButtonType, CodeButton} from '../../components/code-button/code-button';
+import {ButtonSeverity, CodeButton} from '../../components/code-button/code-button';
 import {Cross} from '../../components/cross/cross';
 import {Dash} from '../../components/dash/dash';
 import {LineA} from '../../components/line-a/line-a';
@@ -31,14 +31,14 @@ gsap.registerPlugin(DrawSVGPlugin)
     Dash,
     LineA,
     LineB,
-    Triangle
+    Triangle,
+    CodeButton
   ],
   templateUrl: './cookies.html',
   host: { class: 'block w-full h-full' }
 })
 export class Cookies implements AfterViewInit {
 
-  protected readonly ButtonType = ButtonType;
   crosses = Array.from({ length: 6 }, (_, i) => i);
   widgetDisplay: ModelSignal<WidgetType> = model<WidgetType>(WidgetType.COOKIE);
 
@@ -127,4 +127,6 @@ export class Cookies implements AfterViewInit {
 
 
   }
+
+  protected readonly ButtonSeverity = ButtonSeverity;
 }

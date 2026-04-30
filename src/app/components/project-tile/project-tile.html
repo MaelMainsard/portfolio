@@ -1,0 +1,26 @@
+<div class="relative overflow-hidden">
+  <svg width="530" height="120" viewBox="0 0 1061 238" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M42 1.00293H0V235.003H42V179.003L52.5 167.503L54 72.0029L42 60.5029V1.00293Z" fill="black"/>
+    <path d="M1058 2.50293L41.5 3.50293V232.503L984 235.003L1058 162.003V2.50293Z" stroke="black" stroke-width="5"/>
+    <path d="M1002.5 25.5029H81V161.503L135.5 213.503H976L1037.5 153.503V67.5029L1002.5 25.5029Z" stroke="#9E9E9E" stroke-width="3"/>
+    <path d="M305 201.503L292.5 213.003H375L364 201.503H305Z" fill="black" stroke="#9E9E9E" stroke-width="3"/>
+    <path d="M1003 161.503V164.896L988.864 179.503H985V167.157L991.089 161.503H1003Z" stroke="#9E9E9E" stroke-width="3"/>
+    <path d="M734 201.503L722.5 213.503H802.5L791.5 201.503H734Z" fill="black" stroke="#9E9E9E" stroke-width="3"/>
+    <path d="M76.5 215.003L68 205.003L74.5 199.503V192.503H77.5H90.5V209.503H81.5L76.5 215.003Z" stroke="#9E9E9E" stroke-width="3"/>
+  </svg>
+  <div class="absolute flex flex-row w-full items-center top-4 left-13">
+    <div class="flex flex-col flex-1">
+      <span class="font-calling-code text-ink-soft/70 text-xs">{{data.description}}</span>
+      <h1 class="font-pixel-grid-circle-s text-2xl text-ink-soft mt-1.5">{{data.title}}</h1>
+      <ul class="text-sm text-ink-muted font-calling-code gap-2 flex flex-row">
+        @for(link of data.links; track link.name; let last = $last){
+          <li class="hover:underline cursor-pointer">{{link.name}}</li>
+          @if(!last){
+            <li>|</li>
+          }
+        }
+      </ul>
+    </div>
+    <div class="rounded-2xl bg-line w-15 h-15 mr-25 mt-2"></div>
+  </div>
+</div>

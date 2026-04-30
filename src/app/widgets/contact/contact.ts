@@ -1,7 +1,7 @@
 import {
   AfterViewInit,
   Component,
-  ElementRef,
+  ElementRef, inject,
   input,
   InputSignal,
   model, QueryList,
@@ -18,6 +18,7 @@ import {email, form, FormField, minLength, required, submit} from '@angular/form
 import {FormsModule} from '@angular/forms';
 import sgMail from '@sendgrid/mail';
 import {environment} from '../../../environments/environment';
+import {Popup} from '../popup/popup';
 
 @Component({
   selector: 'widget-contact',
@@ -27,7 +28,8 @@ import {environment} from '../../../environments/environment';
     Textarea,
     CodeButton,
     FormField,
-    FormsModule
+    FormsModule,
+    Popup
   ],
   templateUrl: './contact.html'
 })
@@ -41,6 +43,7 @@ export class Contact implements AfterViewInit {
   pickedCard: InputSignal<PriceCardProps> = input.required<PriceCardProps>();
   showContact = model<boolean>(false);
   isSubmitted = signal<boolean>(false);
+  openPopup = signal<boolean>(false);
   crosses = Array.from({ length: 7 }, (_, i) => i);
 
   contactModel = signal({
@@ -62,6 +65,7 @@ export class Contact implements AfterViewInit {
   onSubmit(event: Event) {
     event.preventDefault();
     this.isSubmitted.set(true);
+    this.openPopup.set(true);
     const msg = {
       to: 'mainsardm@gmail.com',
       from: 'portolio@mainsard.com',
@@ -70,6 +74,7 @@ export class Contact implements AfterViewInit {
       html: '<strong>and easy to do anywhere, even with Node.js</strong>',
     }
   }
+
 
   ngAfterViewInit() {
     //sgMail.setApiKey(environment.SENDGRID_API_KEY);

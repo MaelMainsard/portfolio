@@ -1,45 +1,48 @@
 
-<div #card class="relative h-[40rem] w-[20rem] items-center bg-white border p-4 flex flex-col border-line">
+<div class="relative h-[40rem] w-[20rem]">
 
-  <div #popularFrame class="opacity-0 flex justify-center">
-    <components-corner class="absolute -top-10 -left-5"/>
-    <components-corner class="absolute -top-10 -right-5 rotate-90"/>
-    <components-corner class="absolute -bottom-5 -left-5 -rotate-90"/>
-    <components-corner class="absolute -bottom-5 -right-5 rotate-180"/>
-    <h1 #popularTitle class="font-calling-code absolute -top-10">[SYS_INFO :: POPULAIRE]</h1>
+  <div #popularFrame class="absolute opacity-0 flex w-full h-full justify-center">
+    <components-corner class="absolute top-0 -left-5"/>
+    <components-corner class="absolute top-0 -right-5 rotate-90"/>
+    <components-corner class="absolute bottom-0 -left-5 -rotate-90"/>
+    <components-corner class="absolute bottom-0 -right-5 rotate-180"/>
+    <h1 class="font-calling-code absolute top-0">[SYS_INFO :: POPULAIRE]</h1>
   </div>
 
+  @if(showPicked){
+    <h1 class="font-calling-code mb-2 text-center">[SYS_INFO :: FORMULE_CHOISI]</h1>
+  }
+  <div #card class="p-4 flex flex-col h-full items-center relative bg-white border border-line">
+    <div class="absolute top-3 left-3 w-8 h-1.5 bg-ink"></div>
+    <components-triangle class="absolute top-2 right-2"/>
 
-  <div class="absolute top-3 left-3 w-8 h-1.5 bg-ink"></div>
-  <components-triangle class="absolute top-2 right-2"/>
+    <div class="flex flex-col items-center px-6 pt-2 pb-4 gap-1">
+      <h1 class="font-code font-bold text-4xl text-black">{{ data().title }}</h1>
+      <h2 class="font-calling-code text-center text-ink-soft text-sm">{{ data().subtitle }}</h2>
+    </div>
 
-  <div class="flex flex-col items-center px-6 pt-2 pb-4 gap-1">
-    <h1 class="font-code font-bold text-4xl text-black">{{ data().title }}</h1>
-    <h2 class="font-calling-code text-center text-ink-soft text-sm">{{ data().subtitle }}</h2>
+    <hr class="border-line mx-6 w-full" />
+
+    <div class="flex flex-col items-center px-6 py-1 gap-2">
+      <h1 class="font-pixel-grid-square-s text-3xl text-black">{{ data().price }}€</h1>
+      <p class="font-calling-code text-center text-ink-muted text-xs">{{ data().priceDescription }}</p>
+    </div>
+
+    <hr class="border-line mx-6 w-full" />
+
+
+    <ul class="flex flex-col gap-1 p-3 flex-1 min-h-0">
+      @for (feature of data().features; track feature) {
+        <li class="flex items-start gap-4 font-calling-code text-ink-soft text-base">
+          <span class="text-ink-muted leading-none text-lg">○</span>
+          <span class="text-sm text-start">{{ feature }}</span>
+        </li>
+      }
+    </ul>
+
+    <hr class="border-line mx-6 mb-4 w-full" />
+
+
+    <components-code-button class="w-full" (clicked)="clicked.emit(data())" [title]="buttonText()"/>
   </div>
-
-  <hr class="border-line mx-6 w-full" />
-
-  <div class="flex flex-col items-center px-6 py-1 gap-2">
-    <h1 class="font-pixel-grid-square-s text-3xl text-black">{{ data().price }}€</h1>
-    <p class="font-calling-code text-center text-ink-muted text-xs">{{ data().priceDescription }}</p>
-  </div>
-
-  <hr class="border-line mx-6 w-full" />
-
-
-  <ul class="flex flex-col gap-1 p-3 flex-1 min-h-0">
-    @for (feature of data().features; track feature) {
-      <li class="flex items-start gap-4 font-calling-code text-ink-soft text-base">
-        <span class="text-ink-muted leading-none text-lg">○</span>
-        <span class="text-sm text-start">{{ feature }}</span>
-      </li>
-    }
-  </ul>
-
-  <hr class="border-line mx-6 mb-4 w-full" />
-
-
-  <components-code-button class="w-full" (clicked)="clicked.emit(data())" [title]="buttonText()"/>
-
 </div>

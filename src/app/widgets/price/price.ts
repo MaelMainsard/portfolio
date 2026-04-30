@@ -8,7 +8,7 @@ import {
   ViewChild
 } from '@angular/core';
 import gsap from 'gsap';
-import {ButtonType, CodeButton} from '../../components/code-button/code-button';
+import {ButtonDirection, ButtonSeverity, CodeButton} from '../../components/code-button/code-button';
 import {PriceCard, PriceCardProps} from '../../components/price-card/price-card';
 import {Contact} from '../contact/contact';
 
@@ -17,14 +17,14 @@ import {Contact} from '../contact/contact';
   imports: [
     CodeButton,
     PriceCard,
-    Contact
+    Contact,
+    CodeButton
   ],
   templateUrl: './price.html'
 
 })
 export class Price implements AfterViewInit {
   @ViewChild("slider") slider!: ElementRef;
-  protected readonly ButtonType = ButtonType;
 
   prices: PriceCardProps[] = [
     {
@@ -79,6 +79,7 @@ export class Price implements AfterViewInit {
     },
   ];
   pickedCard!: PriceCardProps;
+  changeCard:boolean = false;
 
   maxPrice: ModelSignal<boolean> = model<boolean>(false);
   showContact = signal<boolean>(false);
@@ -93,6 +94,9 @@ export class Price implements AfterViewInit {
           gsap.fromTo("#card-starter",  {opacity: 0, y: -100}, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
           gsap.fromTo("#card-studio",  {opacity: 0, y: 100}, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
           gsap.fromTo("#card-premium", {opacity: 0, y: -100}, { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' });
+          if(this.changeCard){
+            gsap.delayedCall(0.2, () => this.showPopular.set(true));
+          }
         }, { injector: this.injector });
       }
     });
@@ -104,6 +108,8 @@ export class Price implements AfterViewInit {
 
   onCardClick(card: PriceCardProps): void {
     this.pickedCard = card;
+    this.changeCard = true;
+    this.showPopular.set(false);
     const cardNotClicked = this.prices.filter(price => price !== card);
     const timeline = gsap.timeline({ defaults: { ease: 'power2.in' } });
 
@@ -122,20 +128,20 @@ export class Price implements AfterViewInit {
     gsap.to(this.slider.nativeElement, { xPercent: 0, duration: 0.8, ease: 'power2.inOut'});
     gsap.fromTo("#card-starter", { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.6, ease: 'power2.out' });
     gsap.fromTo("#card-studio", { opacity: 0, y: 100 }, { opacity: 1, y: 0, duration: 0.6, delay: 0.8, ease: 'power2.out' });
-    gsap.fromTo("#card-premium", { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 0.6, delay: 1.0, ease: 'power2.out', onComplete:()=>{
-        this.showPopular.set(true);
-    }});
-
+    gsap.fromTo("#card-premium", { opacity: 0, y: -100 }, { opacity: 1, y: 0, duration: 0.6, delay: 1.0, ease: 'power2.out'});
+    gsap.delayedCall(1.2, () => this.showPopular.set(true));
   }
 
 
   onComeBackClick(): void {
-    gsap.to("#card-starter", { opacity: 0, y: -100, duration: 0.4, delay: 0, ease: 'power2.in' });
-    gsap.to("#card-studio", { opacity: 0, y: 100, duration: 0.4, delay: 0.15, ease: 'power2.in' });
-    gsap.to("#card-premium", { opacity: 0, y: -100, duration: 0.4, delay: 0.3, ease: 'power2.in', onComplete:()=>{
-        this.maxPrice.set(false);
-    }});
+    this.showPopular.set(false);
+    gsap.to("#card-starter", { opacity: 0, y: -100, duration: 0.4, delay: 0.15, ease: 'power2.in' });
+    gsap.to("#card-studio", { opacity: 0, y: 100, duration: 0.4, delay: 0.3, ease: 'power2.in' });
+    gsap.to("#card-premium", { opacity: 0, y: -100, duration: 0.4, delay: 0.45, ease: 'power2.in'});
+    gsap.delayedCall(1, () => this.maxPrice.set(false));
     gsap.to(this.slider.nativeElement, { xPercent: -50, duration: 0.8, delay: 0.7, ease: 'power2.inOut' });
   }
 
+  protected readonly ButtonDirection = ButtonDirection;
+  protected readonly ButtonSeverity = ButtonSeverity;
 }

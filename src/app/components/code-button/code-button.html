@@ -1,8 +1,8 @@
 <button (click)="onClick()" #codeButton
-        [type]="buttonType"
-        [class]="'text-white w-full px-6 py-3 flex items-center justify-between cursor-pointer ' + (type() == ButtonType.PRIMARY ? disabled ? 'bg-ink-muted' : 'bg-primary hover:bg-primary-hover' : 'bg-accent hover:bg-accent-hover') + (iconLeft() ? ' flex-row-reverse' : '')"
-        [style.clip-path]="iconLeft() ? 'polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 80%)' : 'polygon(0 0, 100% 0, 100% 80%, calc(100% - 10px) 100%, 0 100%)'">
+        [type]="type"
+        [class]="'text-white w-full px-6 py-3 flex items-center justify-between cursor-pointer ' + (severity == ButtonSeverity.PRIMARY ? disabled ? 'bg-ink-muted' : 'bg-primary hover:bg-primary-hover' : 'bg-accent hover:bg-accent-hover') + (buttonDirection == ButtonDirection.LEFT ? ' flex-row-reverse' : '')"
+        [style.clip-path]="buttonDirection == ButtonDirection.LEFT ? 'polygon(0 0, 100% 0, 100% 100%, 10px 100%, 0 80%)' : 'polygon(0 0, 100% 0, 100% 80%, calc(100% - 10px) 100%, 0 100%)'">
 
-  <span class="font-pixel-grid-square-s text-xl font-bold">{{title()}}</span>
-  <svg lucideTriangle fill="white" [class]="iconLeft() ? '-rotate-90' : 'rotate-90'"></svg>
+  <span class="font-pixel-grid-square-s text-xl font-bold">{{title}}</span>
+  <svg [lucideIcon]="severity == ButtonSeverity.PRIMARY ? triangle : cross" fill="white" [class]="buttonDirection == ButtonDirection.LEFT ? '-rotate-90' : 'rotate-90'"></svg>
 </button>

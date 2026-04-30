@@ -88,8 +88,8 @@ export class Home implements AfterViewInit {
       left: 8,
       position: 'fixed',
       zIndex: 100,
-      width: window.innerWidth - 8 * 2,
-      height: window.innerHeight - 8 * 2,
+      width: '100%',//window.innerWidth - 8 * 2,
+      height: '100%',// window.innerHeight - 8 * 2,
       duration: 0.5,
       ease: 'back.inOut'
     })
